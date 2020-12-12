@@ -27,6 +27,22 @@ class CreateTransactionService {
       title: category,
     });
 
+    // Alternativa para não utilizar o arquivo CreateCategoryService.ts
+
+    // const categoryRepository = getRepository(Category);
+
+    // let transactionCategory = await categoryRepository.findOne({
+    //   where: { title: category },
+    // });
+
+    // if (!transactionCategory) {
+    //   transactionCategory = categoryRepository.create({
+    //     title: category,
+    //   });
+
+    //   await categoryRepository.save(transactionCategory);
+    // }
+
     const transactionsRepository = getCustomRepository(TransactionsRepository);
 
     const { total } = await transactionsRepository.getBalance();
@@ -38,7 +54,7 @@ class CreateTransactionService {
       title,
       type,
       value,
-      category_id: checkCategory.id,
+      category: checkCategory,
     });
 
     await transactionsRepository.save(transaction);
